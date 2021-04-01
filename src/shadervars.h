@@ -17,7 +17,7 @@ struct ShaderVars : public picogfx::ShaderVars {
     virtual void SetVec4(const char* name, const float* vec);
     virtual void SetMat4(const char* name, const float* mat);
     virtual void SetTexture(const char* name, const Texture* tex);
-    virtual void Prepare();
+    void Prepare();
 private:
     struct ShaderVar {
         typedef void (* PrepareFunc)(const ShaderVars&, const ShaderVar&, const Shader&);

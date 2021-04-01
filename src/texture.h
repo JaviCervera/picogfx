@@ -13,7 +13,7 @@ struct Texture : public picogfx::Texture {
     virtual size_t GetWidth();
     virtual size_t GetHeight();
     virtual TextureFilter GetFilter();
-    virtual size_t GetId();
+    size_t GetId();
 private:
     size_t mId;
     size_t mWidth;
