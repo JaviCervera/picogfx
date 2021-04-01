@@ -1,3 +1,9 @@
+.DS_Store
+.vscode
+_build/*
+!_build/data
+_CMAKE
+
 # Prerequisites
 *.d
 
