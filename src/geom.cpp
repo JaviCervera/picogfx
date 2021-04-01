@@ -26,7 +26,7 @@ void GeomImpl::Discard() {
     delete this;
 }
 
-void GeomImpl::Draw(const float* transform, const ShaderVars& shaderVars) {
+void GeomImpl::Draw(const ShaderVars& shaderVars) {
     GfxDriver::Get().BindBuffers(mVertexBuffer, mIndexBuffer);
     shaderVars.Prepare();
     GfxDriver::Get().DrawTrianglesWithBoundBuffersAndUnbind(mNumIndices);
