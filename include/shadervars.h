@@ -3,6 +3,7 @@
 namespace picogfx {
 
 struct Shader;
+struct Texture;
 
 struct ShaderVars {
     static ShaderVars* Create(const Shader& shader);
