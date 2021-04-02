@@ -1,5 +1,8 @@
 #pragma once
 
+#include "../include/core.h"
+#include "../include/texture.h"
+
 namespace picogfx {
 
 struct Vertex;
@@ -8,6 +11,9 @@ namespace impl {
 
 struct GfxDriver {
     static GfxDriver& Get();
+
+    virtual bool Init(Core::LoadProc proc) = 0;
+    virtual void Prepare(int viewportX, int viewportY, int viewportWidth, int viewportHeight, int color) = 0;
 
     virtual size_t CreateBuffer() = 0;
     virtual void DiscardBuffer(size_t buffer) = 0;

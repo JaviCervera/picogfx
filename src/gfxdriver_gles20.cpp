@@ -7,6 +7,25 @@ namespace picogfx {
 namespace impl {
 
 struct GfxDriverGLES20 : public GfxDriver {
+    virtual bool Init(Core::LoadProc proc) {
+        return gladLoadGLES2Loader((GLADloadproc)proc);
+    }
+
+    virtual void Prepare(int viewportX, int viewportY, int viewportWidth, int viewportHeight, int color) {
+        // Enable required gl states
+        glEnable(GL_CULL_FACE);
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_SCISSOR_TEST);
+        glDepthFunc(GL_LEQUAL);
+        glFrontFace(GL_CW);
+
+        // Set viewport
+        glViewport(viewportX, viewportY, viewportWidth, viewportHeight);
+        glScissor(viewportX, viewportY, viewportWidth, viewportHeight);
+        glClearColor((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff, 1);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
+
     virtual size_t CreateBuffer() {
         size_t buffer;
         glGenBuffers(1, (GLuint*)&buffer);
@@ -186,8 +205,7 @@ struct GfxDriverGLES20 : public GfxDriver {
 };
 
 GfxDriver& GfxDriver::Get() {
-    static GfxDriverGLES20* instance = NULL;
-    if (!instance) instance = new GfxDriverGLES20();
+    static GfxDriverGLES20* instance = new GfxDriverGLES20();
     return *instance;
 }
 
