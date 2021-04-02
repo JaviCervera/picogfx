@@ -1,6 +1,6 @@
-#include "../include/stb/stretchy_buffer.h"
 #include "gfxdriver.h"
 #include "shadervars.h"
+#include "stb/stretchy_buffer.h"
 
 namespace picogfx {
 

@@ -1,6 +1,6 @@
 #include "../include/texture.h"
 #include "../include/vertex.h"
-#include "../lib/glad_gles20/include/glad/glad.h"
+#include "glad_gles20/include/glad/glad.h"
 #include "gfxdriver.h"
 
 namespace picogfx {
