@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stddef.h>
+
 namespace picogfx {
 
 struct Shader {

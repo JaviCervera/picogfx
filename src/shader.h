@@ -9,8 +9,8 @@ struct Shader : public picogfx::Shader {
     Shader(size_t id);
     ~Shader();
     virtual void Discard();
-    void Prepare();
-    size_t GetId();
+    void Prepare() const;
+    size_t GetId() const;
 private:
     struct ShaderAttribs {
         int VertexPosition;
@@ -20,7 +20,7 @@ private:
         int VertexTexCoords;
 
         ShaderAttribs(size_t shaderId);
-        void Prepare();
+        void Prepare(size_t shaderId) const;
     };
 
     size_t mId;

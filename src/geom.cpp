@@ -1,10 +1,11 @@
 #include "geom.h"
 #include "gfxdriver.h"
+#include "shadervars.h"
 
 namespace picogfx {
 
 Geom* Geom::Create(const Vertex* vertices, size_t numVertices, const unsigned short* indices, size_t numIndices) {
-    return new Geom(vertices, numVertices, indices, numIndices);
+    return new impl::Geom(vertices, numVertices, indices, numIndices);
 }
 
 namespace impl {
@@ -12,7 +13,7 @@ namespace impl {
 Geom::Geom(const Vertex* vertices, size_t numVertices, const unsigned short* indices, size_t numIndices) {
     mNumIndices = numIndices;
     mVertexBuffer = GfxDriver::Get().CreateBuffer();
-    mIndicesBuffer = GfxDriver::Get().CreateBuffer();
+    mIndexBuffer = GfxDriver::Get().CreateBuffer();
     GfxDriver::Get().SetVertexBufferData(mVertexBuffer, vertices, numVertices);
     GfxDriver::Get().SetIndexBufferData(mIndexBuffer, indices, numIndices);
 }
@@ -22,11 +23,11 @@ Geom::~Geom() {
     GfxDriver::Get().DiscardBuffer(mIndexBuffer);
 }
 
-void GeomImpl::Discard() {
+void Geom::Discard() {
     delete this;
 }
 
-void GeomImpl::Draw(const ShaderVars& shaderVars) {
+void Geom::Draw(ShaderVars& shaderVars) const {
     GfxDriver::Get().BindBuffers(mVertexBuffer, mIndexBuffer);
     shaderVars.Prepare();
     GfxDriver::Get().DrawTrianglesWithBoundBuffersAndUnbind(mNumIndices);

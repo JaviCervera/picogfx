@@ -9,12 +9,12 @@ namespace impl {
 struct GfxDriverGLES20 : public GfxDriver {
     virtual size_t CreateBuffer() {
         size_t buffer;
-        glGenBuffers(1, &buffer);
+        glGenBuffers(1, (GLuint*)&buffer);
         return buffer;
     }
 
     virtual void DiscardBuffer(size_t buffer) {
-        glDeleteBuffers(1, &buffer);
+        glDeleteBuffers(1, (GLuint*)&buffer);
     }
 
     virtual void SetVertexBufferData(size_t buffer, const Vertex* vertices, size_t numVertices) {
@@ -102,7 +102,7 @@ struct GfxDriverGLES20 : public GfxDriver {
         }
     }
 
-    virtual int GetShaderLocation(size_t shader, const char* name) {
+    virtual int GetShaderVarLocation(size_t shader, const char* name) {
         return glGetUniformLocation(shader, name);
     }
 
@@ -133,7 +133,7 @@ struct GfxDriverGLES20 : public GfxDriver {
 
     virtual size_t CreateTexture(size_t width, size_t height, bool isDepth) {
         size_t id;
-        glGenTextures(1, &id);
+        glGenTextures(1, (GLuint*)&id);
         glBindTexture(GL_TEXTURE_2D, id);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -144,11 +144,16 @@ struct GfxDriverGLES20 : public GfxDriver {
     }
 
     virtual void DiscardTexture(size_t tex) {
-        glDeleteTextures(1, &tex);
+        glDeleteTextures(1, (GLuint*)&tex);
+    }
+
+    virtual void BindTexture(size_t tex, size_t unit) {
+        glActiveTexture(GL_TEXTURE0 + unit);
+        glBindTexture(GL_TEXTURE_2D, tex);
     }
 
     virtual void SetTexturePixels(size_t tex, const void* pixels, size_t width, size_t height, TextureFilter filter) {
-        glBindTexture(GL_TEXTURE_2D, id);
+        glBindTexture(GL_TEXTURE_2D, tex);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, MinFilter(filter));
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, MagFilter(filter));
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -161,9 +166,9 @@ struct GfxDriverGLES20 : public GfxDriver {
     static GLint MinFilter(TextureFilter filter) {
         switch (filter) {
         case NONE:
-            return GL_NEAREST
+            return GL_NEAREST;
         case LINEAR:
-            return GL_LINEAR
+            return GL_LINEAR;
         case BILINEAR:
             return GL_LINEAR;
         case TRILINEAR:
@@ -180,7 +185,7 @@ struct GfxDriverGLES20 : public GfxDriver {
     }
 };
 
-static GfxDriver& GfxDriver::Get() {
+GfxDriver& GfxDriver::Get() {
     static GfxDriverGLES20* instance = NULL;
     if (!instance) instance = new GfxDriverGLES20();
     return *instance;
