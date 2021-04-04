@@ -21,7 +21,7 @@ struct GfxDriver {
     virtual void SetVertexBufferData(size_t buffer, const Vertex* vertices, size_t numVertices) = 0;
     virtual void SetIndexBufferData(size_t buffer, const unsigned short* indices, size_t numIndices) = 0;
     virtual void BindBuffers(size_t vertexBuffer, size_t indexBuffer) = 0;
-    virtual void DrawTrianglesWithBoundBuffersAndUnbind(size_t numIndices) = 0;
+    virtual void RenderTrianglesWithBoundBuffersAndUnbind(size_t numIndices) = 0;
 
     virtual size_t CreateShader(const char* vertex, const char* fragment, char* outError, size_t outSize) = 0;
     virtual void DiscardShader(size_t shader) = 0;

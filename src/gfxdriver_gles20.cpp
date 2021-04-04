@@ -59,7 +59,7 @@ struct GfxDriverGLES20 : public GfxDriver {
     }
 
 
-    virtual void DrawTrianglesWithBoundBuffersAndUnbind(size_t numIndices) {
+    virtual void RenderTrianglesWithBoundBuffersAndUnbind(size_t numIndices) {
         glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_SHORT, 0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

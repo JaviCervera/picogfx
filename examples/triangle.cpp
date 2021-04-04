@@ -46,10 +46,10 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
-    // Create shader vars
-    ShaderVars* vars = ShaderVars::Create(*shader);
-    vars->SetMat4("Projection", projection);
-    vars->SetMat4("ModelView", modelView);
+    // Create render data
+    RenderData* renderData = RenderData::Create(*shader);
+    renderData->BindMat4("Projection", projection);
+    renderData->BindMat4("ModelView", modelView);
 
     // Create triangle
     const Vertex vertices[] = {
@@ -81,8 +81,8 @@ int main(int argc, char* argv[]) {
         Core::Get().MulMatrices(view, model, modelView);
         Core::Get().Prepare(0, 0, width, height, 0xff000044);
 
-        // Draw geom
-        geom->Draw(*vars, false);
+        // Render geom
+        geom->Render(*renderData, false);
 
         // Swap screen buffers
         glfwSwapBuffers(window);

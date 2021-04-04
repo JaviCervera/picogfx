@@ -1,6 +1,6 @@
 #include "geom.h"
 #include "gfxdriver.h"
-#include "shadervars.h"
+#include "renderdata.h"
 
 namespace picogfx {
 
@@ -27,11 +27,11 @@ void Geom::Discard() {
     delete this;
 }
 
-void Geom::Draw(picogfx::ShaderVars& shaderVars, bool culling) const {
+void Geom::Render(picogfx::RenderData& renderData, bool culling) const {
     GfxDriver::Get().SetCulling(culling);
     GfxDriver::Get().BindBuffers(mVertexBuffer, mIndexBuffer);
-    ((ShaderVars&)shaderVars).Prepare();
-    GfxDriver::Get().DrawTrianglesWithBoundBuffersAndUnbind(mNumIndices);
+    ((RenderData&)renderData).Prepare();
+    GfxDriver::Get().RenderTrianglesWithBoundBuffersAndUnbind(mNumIndices);
 }
 
 } // namespace impl
