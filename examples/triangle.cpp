@@ -2,7 +2,7 @@
 #include <string.h>
 #include "../include/picogfx.h"
 #include "glfw3/include/GLFW/glfw3.h"
-#include <util.h>
+#include "util.h"
 
 using namespace picogfx;
 
@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
 
     // Create shader
     char shaderError[256];
-    Shader* shader = Shader::Create(LoadString("data/color.vs.glsl").c_str(), LoadString("color.fs.glsl").c_str(), shaderError, sizeof(shaderError));
+    Shader* shader = Shader::Create(LoadString("data/color.vs.glsl").c_str(), LoadString("data/color.fs.glsl").c_str(), shaderError, sizeof(shaderError));
     if (!shader) {
         strcat(shaderError, "\n");
         puts(shaderError);
@@ -63,22 +63,26 @@ int main(int argc, char* argv[]) {
     // Main loop
     double lastTime = glfwGetTime();
     float deltaTime = 0.0f;
+    float angle = 0.0f;
     while (!glfwWindowShouldClose(window) && !glfwGetKey(window, GLFW_KEY_ESCAPE)) {
         // Update delta time
         deltaTime = float(glfwGetTime() - lastTime);
         lastTime = glfwGetTime();
+
+        // Update angle
+        angle += 90 * deltaTime;
 
         // Prepare for drawing
         int width, height;
         glfwGetWindowSize(window, &width, &height);
         Core::Get().SetPerspective(60, float(width) / height, 1, 1000, projection);
         Core::Get().SetView(0, 0, -4, 0, 0, 0, view);
-        Core::Get().SetTransform(0, 0, 0, 0, 0, 0, 1, 1, 1, model);
+        Core::Get().SetTransform(0, 0, 0, 0, angle, 0, 1, 1, 1, model);
         Core::Get().MulMatrices(view, model, modelView);
-        Core::Get().Prepare(0, 0, width, height, 0xff000088);
+        Core::Get().Prepare(0, 0, width, height, 0xff000044);
 
         // Draw geom
-        geom->Draw(*vars);
+        geom->Draw(*vars, false);
 
         // Swap screen buffers
         glfwSwapBuffers(window);

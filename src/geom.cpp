@@ -27,9 +27,10 @@ void Geom::Discard() {
     delete this;
 }
 
-void Geom::Draw(ShaderVars& shaderVars) const {
+void Geom::Draw(picogfx::ShaderVars& shaderVars, bool culling) const {
+    GfxDriver::Get().SetCulling(culling);
     GfxDriver::Get().BindBuffers(mVertexBuffer, mIndexBuffer);
-    shaderVars.Prepare();
+    ((ShaderVars&)shaderVars).Prepare();
     GfxDriver::Get().DrawTrianglesWithBoundBuffersAndUnbind(mNumIndices);
 }
 

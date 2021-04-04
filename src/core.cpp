@@ -17,9 +17,10 @@ void Core::SetPerspective(float fov, float ratio, float start, float end, float*
 
 void Core::SetView(float x, float y, float z, float pitch, float yaw, float roll, float* m) {
     lquat_t q = lquat_fromeuler(lvec3_rad(lvec3(pitch, yaw, roll)));
-    lmat4_t view = lmat4_identity();
-    view = lmat4_rotate(view, -lquat_angle(q), lquat_axis(q));
-    view = lmat4_translate(view, lvec3(-x, -y, -z));
+    lmat4_t mat = lmat4_identity();
+    mat = lmat4_rotate(mat, -lquat_angle(q), lquat_axis(q));
+    mat = lmat4_translate(mat, lvec3(-x, -y, -z));
+    memcpy(m, &mat, sizeof(mat));
 }
 
 void Core::SetTransform(float x, float y, float z, float pitch, float yaw, float roll, float sx, float sy, float sz, float* m) {

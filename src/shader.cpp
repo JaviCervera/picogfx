@@ -1,6 +1,6 @@
+#include "../include/vertex.h"
 #include "gfxdriver.h"
 #include "shader.h"
-#include "vertex.h"
 
 namespace picogfx {
 

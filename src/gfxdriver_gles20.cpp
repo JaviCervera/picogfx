@@ -22,8 +22,13 @@ struct GfxDriverGLES20 : public GfxDriver {
         // Set viewport
         glViewport(viewportX, viewportY, viewportWidth, viewportHeight);
         glScissor(viewportX, viewportY, viewportWidth, viewportHeight);
-        glClearColor((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff, 1);
+        glClearColor(((color >> 16) & 0xff) / 255.0f, ((color >> 8) & 0xff) / 255.0f, (color & 0xff) / 255.0f, 1);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
+
+    virtual void SetCulling(bool enable) {
+        if (enable) glEnable(GL_CULL_FACE);
+        else glDisable(GL_CULL_FACE);
     }
 
     virtual size_t CreateBuffer() {
@@ -160,6 +165,7 @@ struct GfxDriverGLES20 : public GfxDriver {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
         glTexImage2D(GL_TEXTURE_2D, 0, isDepth ? GL_DEPTH_COMPONENT16 : GL_RGBA, width, height, 0, isDepth ? GL_DEPTH_COMPONENT : GL_RGBA, GL_UNSIGNED_BYTE, NULL);
         glBindTexture(GL_TEXTURE_2D, 0);
+        return id;
     }
 
     virtual void DiscardTexture(size_t tex) {

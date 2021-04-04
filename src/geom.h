@@ -9,7 +9,7 @@ struct Geom : public picogfx::Geom {
     Geom(const Vertex* vertices, size_t numVertices, const unsigned short* indices, size_t numIndices);
     ~Geom();
     virtual void Discard();
-    virtual void Draw(ShaderVars& shaderVars) const;
+    virtual void Draw(picogfx::ShaderVars& shaderVars, bool culling) const;
 private:
     size_t mVertexBuffer;
     size_t mIndexBuffer;
