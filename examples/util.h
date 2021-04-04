@@ -1,11 +1,14 @@
-#include <fstream>
-#include <sstream>
-#include <string>
+#include <stdio.h>
+#include <stdlib.h>
 
-inline std::string LoadString(const char* filename) {
-  std::ifstream istream(filename, std::ios_base::in | std::ios_base::binary);
-  std::stringstream sstream;
-  sstream << istream.rdbuf();
-  istream.close();
-  return sstream.str();
+inline char* LoadString(const char* filename) {
+  FILE* f = fopen(filename, "rb");
+  fseek(f, 0, SEEK_END);
+  const long size = ftell(f);
+  fseek(f, 0, SEEK_SET);
+  char* str = (char*)malloc(size + 1);
+  fread(str, size, sizeof(char), f);
+  str[size] = 0;
+  fclose(f);
+  return str;
 }

@@ -39,7 +39,11 @@ int main(int argc, char* argv[]) {
 
     // Create shader
     char shaderError[256];
-    Shader* shader = Shader::Create(LoadString("data/color.vs.glsl").c_str(), LoadString("data/color.fs.glsl").c_str(), shaderError, sizeof(shaderError));
+    char* vertex = LoadString("data/color.vs.glsl");
+    char* fragment = LoadString("data/color.fs.glsl");
+    Shader* shader = Shader::Create(vertex, fragment, shaderError, sizeof(shaderError));
+    free(vertex);
+    free(fragment);
     if (!shader) {
         strcat(shaderError, "\n");
         puts(shaderError);
