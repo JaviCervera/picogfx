@@ -22,6 +22,7 @@ int main(int argc, char* argv[]) {
         glfwTerminate();
         return -1;
     }
+    glfwSetWindowTitle(window, "PicoGFX Triangle");
     glfwMakeContextCurrent(window);
 
     // Init PicoGfx
@@ -39,8 +40,8 @@ int main(int argc, char* argv[]) {
 
     // Create shader
     char shaderError[256];
-    char* vertex = LoadString("data/color.vs.glsl");
-    char* fragment = LoadString("data/color.fs.glsl");
+    char* vertex = LoadString("data/vertexcolor.vs.glsl");
+    char* fragment = LoadString("data/vertexcolor.fs.glsl");
     Shader* shader = Shader::Create(vertex, fragment, shaderError, sizeof(shaderError));
     free(vertex);
     free(fragment);
