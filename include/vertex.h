@@ -9,7 +9,7 @@ struct Vertex {
     int Color;
     float TexCoords[2];
 
-    Vertex(float x, float y, float z, int color, float u = 0, float v = 0) {
+    Vertex(float x = 0, float y = 0, float z = 0, int color = 0xffffffff, float u = 0, float v = 0) {
         Position[0] = x;
         Position[1] = y;
         Position[2] = z;
