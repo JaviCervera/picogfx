@@ -5,6 +5,9 @@
 #include <string.h>
 #include "../include/picogfx.h"
 #include "glfw3/include/GLFW/glfw3.h"
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_opengl3.h"
 #include "load_obj.h"
 #include "util.h"
 
@@ -52,6 +55,14 @@ int main(int argc, char* argv[]) {
         glfwTerminate();
         return -1;
     }
+
+    // Setup Dear ImGui
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO &io = ImGui::GetIO();
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init("#version 100");
+    ImGui::StyleColorsDark();
 
     // Create shader
     char shaderError[256];
@@ -113,6 +124,18 @@ void Update() {
     for (std::vector<Geom*>::iterator it = geoms.begin(); it != geoms.end(); ++it) {
         (*it)->Render(*renderData, false);
     }
+
+    // Start new ImGui frame
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+
+    // Render gui
+    ImGui::Begin("Demo window");
+    ImGui::Button("Hello!");
+    ImGui::End();
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     // Swap screen buffers
     glfwSwapBuffers(window);
