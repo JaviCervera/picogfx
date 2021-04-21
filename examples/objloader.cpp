@@ -152,7 +152,7 @@ Geom* LoadObj(const char* filename) {
             const tinyobj::real_t vz = -attrib.vertices[3*idx.vertex_index+2];
             const tinyobj::real_t nx = idx.normal_index > -1 ? attrib.normals[3*idx.normal_index+0] : 0;
             const tinyobj::real_t ny = idx.normal_index > -1 ? attrib.normals[3*idx.normal_index+1] : 0;
-            const tinyobj::real_t nz = idx.normal_index > -1 ? attrib.normals[3*idx.normal_index+2] : -1;
+            const tinyobj::real_t nz = idx.normal_index > -1 ? -attrib.normals[3*idx.normal_index+2] : -1;
             const tinyobj::real_t tx = 1;
             const tinyobj::real_t ty = 0;
             const tinyobj::real_t tz = 0;
