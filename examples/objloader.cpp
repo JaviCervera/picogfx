@@ -3,20 +3,16 @@
 #endif
 #include <stdio.h>
 #include <string.h>
-#include <string>
-#include <vector>
 #include "../include/picogfx.h"
 #include "glfw3/include/GLFW/glfw3.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
-#define TINYOBJLOADER_IMPLEMENTATION
-#include "tiny_obj_loader.h"
+#include "load_obj.h"
 #include "util.h"
 
 using namespace picogfx;
 
 void Update();
-Geom* LoadObj(const char* filename);
 
 GLFWwindow* window = NULL;
 float projection[16];
@@ -24,7 +20,7 @@ float modelView[16];
 float view[16];
 float model[16];
 RenderData* renderData = NULL;
-Geom* geom = NULL;
+std::vector<Geom*> geoms;
 Texture* tex = NULL;
 double lastTime = 0.0;
 float deltaTime = 0.0f;
@@ -70,8 +66,8 @@ int main(int argc, char* argv[]) {
     }
 
     // Load OBJ
-    geom = LoadObj("data/skull.obj");
-    if (geom == NULL) return -1;
+    geoms = LoadObj("data/skull.obj");
+    if (geoms.size() == 0) return -1;
 
     // Load texture
     int w, h;
@@ -117,53 +113,13 @@ void Update() {
     Core::Get().Prepare(0, 0, width, height, 0xff000044);
 
     // Render geom
-    geom->Render(*renderData, false);
+    for (std::vector<Geom*>::iterator it = geoms.begin(); it != geoms.end(); ++it) {
+        (*it)->Render(*renderData, false);
+    }
 
     // Swap screen buffers
     glfwSwapBuffers(window);
 
     // Poll events
     glfwPollEvents();
-}
-
-Geom* LoadObj(const char* filename) {
-    // Load obj
-    tinyobj::attrib_t attrib;
-    std::vector<tinyobj::shape_t> shapes;
-    std::vector<tinyobj::material_t> materials;
-    std::string err;
-    bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &err, filename);
-    if (!ret) {
-        puts(err.c_str());
-        return NULL;
-    }
-
-    // Parse vertices and indices from first shape
-    std::vector<Vertex> vertices(attrib.vertices.size());
-    std::vector<unsigned short> indices;
-    const tinyobj::shape_t& shape = shapes[0];
-    size_t indexOffset = 0;
-    for (int f = 0; f < shape.mesh.num_face_vertices.size(); ++f) {
-        const int numIndices = shape.mesh.num_face_vertices[f];
-        for (int i = 0; i < numIndices; ++i) {
-            const tinyobj::index_t idx = shape.mesh.indices[indexOffset + i];
-            const tinyobj::real_t vx = attrib.vertices[3*idx.vertex_index+0];
-            const tinyobj::real_t vy = attrib.vertices[3*idx.vertex_index+1];
-            const tinyobj::real_t vz = -attrib.vertices[3*idx.vertex_index+2];
-            const tinyobj::real_t nx = idx.normal_index > -1 ? attrib.normals[3*idx.normal_index+0] : 0;
-            const tinyobj::real_t ny = idx.normal_index > -1 ? attrib.normals[3*idx.normal_index+1] : 0;
-            const tinyobj::real_t nz = idx.normal_index > -1 ? -attrib.normals[3*idx.normal_index+2] : -1;
-            const tinyobj::real_t tx = 1;
-            const tinyobj::real_t ty = 0;
-            const tinyobj::real_t tz = 0;
-            const tinyobj::real_t u = idx.texcoord_index > -1 ? attrib.texcoords[2*idx.texcoord_index+0] : 0;
-            const tinyobj::real_t v = idx.texcoord_index > -1 ? -attrib.texcoords[2*idx.texcoord_index+1] : 0;
-            vertices[idx.vertex_index] = Vertex(vx, vy, vz, nx, ny, nz, tx, ty, tz, 0xffffffff, u, v);
-        }
-        indices.push_back(shape.mesh.indices[indexOffset + 0].vertex_index);
-        indices.push_back(shape.mesh.indices[indexOffset + 2].vertex_index);
-        indices.push_back(shape.mesh.indices[indexOffset + 1].vertex_index);
-        indexOffset += numIndices;
-    }
-    return Geom::Create(&vertices[0], vertices.size(), &indices[0], indices.size());
 }
