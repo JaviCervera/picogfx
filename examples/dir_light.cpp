@@ -27,7 +27,7 @@ float deltaTime = 0.0f;
 float angle = 0.0f;
 float lightDir[] = {1, 1, -1, 0};
 float viewLightDir[3];
-float lightColor[] = {1, 1, 0};
+float diffuse[] = {1, 1, 0};
 float ambient[] = {0.01f, 0.01f, 0.01f};
 
 int main(int argc, char* argv[]) {
@@ -59,10 +59,10 @@ int main(int argc, char* argv[]) {
     // Setup Dear ImGui
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
+    ImGui::StyleColorsDark();
     ImGuiIO &io = ImGui::GetIO();
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 100");
-    ImGui::StyleColorsDark();
 
     // Create shader
     char shaderError[256];
@@ -85,8 +85,8 @@ int main(int argc, char* argv[]) {
     renderData = RenderData::Create(*shader);
     renderData->BindMat4("Projection", projection);
     renderData->BindMat4("ModelView", modelView);
-    renderData->BindVec3("DirLight.Direction", viewLightDir);
-    renderData->BindVec3("DirLight.Color", lightColor);
+    renderData->BindVec3("LightDir", viewLightDir);
+    renderData->BindVec3("Diffuse", diffuse);
     renderData->BindVec3("Ambient", ambient);
 
     // Main loop
@@ -131,8 +131,12 @@ void Update() {
     ImGui::NewFrame();
 
     // Render gui
-    ImGui::Begin("Demo window");
-    ImGui::Button("Hello!");
+    ImGui::Begin("Light", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize);
+    ImGui::ColorEdit3("Diffuse", diffuse);
+    ImGui::ColorEdit3("Ambient", ambient);
+    ImGui::SliderFloat("X", &lightDir[0], -1, 1);
+    ImGui::SliderFloat("Y", &lightDir[1], -1, 1);
+    ImGui::SliderFloat("Z", &lightDir[2], -1, 1);
     ImGui::End();
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
