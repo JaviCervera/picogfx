@@ -33,6 +33,11 @@ void Core::MulMatrices(const float* a, const float* b, float* m) {
     memcpy(m, &mat, sizeof(mat));
 }
 
+void Core::MulVecByMatrix(const float* vec, const float* m, float* out) {
+    lvec3_t result = lmat4_mulvec3(*(const lmat4_t*)m, lvec3(vec[0], vec[1], vec[2]), vec[3]);
+    memcpy(out, &result, sizeof(result));
+}
+
 void Core::Prepare(int viewportX, int viewportY, int viewportWidth, int viewportHeight, int color) {
     GfxDriver::Get().Prepare(viewportX, viewportY, viewportWidth, viewportHeight, color);
 }
