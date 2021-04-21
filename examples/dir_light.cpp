@@ -14,6 +14,7 @@
 using namespace picogfx;
 
 void Update();
+void Normalize(float x, float y, float z, float* out);
 
 GLFWwindow* window = NULL;
 float projection[16];
@@ -29,6 +30,12 @@ float lightDir[] = {1, 1, -1, 0};
 float viewLightDir[3];
 float diffuse[] = {1, 1, 0};
 float ambient[] = {0.01f, 0.01f, 0.01f};
+float emissive[] = {0, 0, 0};
+float specular[] = {1, 1, 1};
+int specularPower = 64;
+float eyePos[] = {0, 4, -5};
+float halfVector[] = {0, 0, 0, 0};
+float viewHalfVector[3];
 
 int main(int argc, char* argv[]) {
     // Init GLFW
@@ -88,6 +95,10 @@ int main(int argc, char* argv[]) {
     renderData->BindVec3("LightDir", viewLightDir);
     renderData->BindVec3("Diffuse", diffuse);
     renderData->BindVec3("Ambient", ambient);
+    renderData->BindVec3("Emissive", emissive);
+    renderData->BindVec3("Specular", specular);
+    renderData->BindInt("SpecPower", &specularPower);
+    renderData->BindVec3("HalfVector", viewHalfVector);
 
     // Main loop
     lastTime = glfwGetTime();
@@ -110,14 +121,19 @@ void Update() {
     // Update angle
     angle += 90 * deltaTime;
 
+    // Update half vector
+    Normalize(eyePos[0], eyePos[1], eyePos[2], halfVector);
+    Normalize(lightDir[0] - halfVector[0], lightDir[1] - halfVector[1], lightDir[2] - halfVector[2], halfVector);
+
     // Prepare for drawing
     int width, height;
     glfwGetWindowSize(window, &width, &height);
     Core::Get().SetPerspective(60, float(width) / height, 1, 1000, projection);
-    Core::Get().SetView(0, 4, -5, 30, 0, 0, view);
+    Core::Get().SetView(eyePos[0], eyePos[1], eyePos[2], 30, 0, 0, view);
     Core::Get().SetTransform(0, 0, 0, 0, angle, 0, 1, 1, 1, model);
     Core::Get().MulMatrices(view, model, modelView);
     Core::Get().MulVecByMatrix(lightDir, view, viewLightDir);
+    Core::Get().MulVecByMatrix(halfVector, view, viewHalfVector);
     Core::Get().Prepare(0, 0, width, height, 0xff000044);
 
     // Render geom
@@ -134,6 +150,9 @@ void Update() {
     ImGui::Begin("Light", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize);
     ImGui::ColorEdit3("Diffuse", diffuse);
     ImGui::ColorEdit3("Ambient", ambient);
+    ImGui::ColorEdit3("Emissive", emissive);
+    ImGui::ColorEdit3("Specular", specular);
+    ImGui::SliderInt("Specular Power", &specularPower, 1, 128);
     ImGui::SliderFloat("X", &lightDir[0], -1, 1);
     ImGui::SliderFloat("Y", &lightDir[1], -1, 1);
     ImGui::SliderFloat("Z", &lightDir[2], -1, 1);
@@ -146,4 +165,12 @@ void Update() {
 
     // Poll events
     glfwPollEvents();
+}
+
+void Normalize(float x, float y, float z, float* out) {
+    const float sqlen = x*x + y*y + z*z;
+    const float invLen = (sqlen != 0) ? (1.0 / sqrt(sqlen)) : 1;
+    out[0] = x * invLen;
+    out[1] = y * invLen;
+    out[2] = z * invLen;
 }
