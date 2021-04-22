@@ -22,8 +22,10 @@ struct GfxDriverGLES20 : public GfxDriver {
         // Set viewport
         glViewport(viewportX, viewportY, viewportWidth, viewportHeight);
         glScissor(viewportX, viewportY, viewportWidth, viewportHeight);
-        glClearColor(((color >> 16) & 0xff) / 255.0f, ((color >> 8) & 0xff) / 255.0f, (color & 0xff) / 255.0f, 1);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        if (color != 0) {
+            glClearColor(((color >> 16) & 0xff) / 255.0f, ((color >> 8) & 0xff) / 255.0f, (color & 0xff) / 255.0f, 1);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        }
     }
 
     virtual void SetCulling(bool enable) {
