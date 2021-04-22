@@ -48,7 +48,7 @@ std::vector<picogfx::Geom*> LoadObj(const char* filename) {
             indices.push_back(shape.mesh.indices[indexOffset + 1].vertex_index);
             indexOffset += numIndices;
         }
-        geoms.push_back(picogfx::Geom::Create(&vertices[0], vertices.size(), &indices[0], indices.size()));
+        geoms.push_back(picogfx::Geom::Create(picogfx::TRIANGLES, &vertices[0], vertices.size(), &indices[0], indices.size()));
     }
     return geoms;
 }

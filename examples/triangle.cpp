@@ -73,7 +73,7 @@ int main(int argc, char* argv[]) {
         Vertex(1, -1, 0, 0xff0000ff)
     };
     const unsigned short indices[] = {0, 1, 2};
-    geom = Geom::Create(vertices, 3, indices, 3);
+    geom = Geom::Create(TRIANGLES, vertices, 3, indices, 3);
 
     // Main loop
     lastTime = glfwGetTime();

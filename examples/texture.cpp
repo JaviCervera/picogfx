@@ -84,8 +84,8 @@ int main(int argc, char* argv[]) {
         Vertex(1, 1, 0, 0xffffffff, 1, 0),
         Vertex(1, -1, 0, 0xffffffff, 1, 1)
     };
-    const unsigned short indices[] = {0, 1, 2, 0, 2, 3};
-    geom = Geom::Create(vertices, 4, indices, 6);
+    const unsigned short indices[] = {0, 1, 2, 3};
+    geom = Geom::Create(TRIANGLE_FAN, vertices, 4, indices, 4);
 
     // Main loop
     lastTime = glfwGetTime();

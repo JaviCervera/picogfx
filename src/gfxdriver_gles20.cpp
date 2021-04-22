@@ -60,11 +60,30 @@ struct GfxDriverGLES20 : public GfxDriver {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
     }
 
+    virtual void RenderPointsWithBoundBuffersAndUnbind(size_t numIndices) {
+        RenderWithBoundBuffersAndUnbind(GL_POINTS, numIndices);
+    }
 
-    virtual void RenderTrianglesWithBoundBuffersAndUnbind(size_t numIndices) {
-        glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_SHORT, 0);
+    static void RenderWithBoundBuffersAndUnbind(GLenum mode, size_t numIndices) {
+        glDrawElements(mode, numIndices, GL_UNSIGNED_SHORT, 0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    }
+
+    virtual void RenderLinesWithBoundBuffersAndUnbind(size_t numIndices) {
+        RenderWithBoundBuffersAndUnbind(GL_LINES, numIndices);
+    }
+
+    virtual void RenderTrianglesWithBoundBuffersAndUnbind(size_t numIndices) {
+        RenderWithBoundBuffersAndUnbind(GL_TRIANGLES, numIndices);
+    }
+
+    virtual void RenderTriangleStripWithBoundBuffersAndUnbind(size_t numIndices) {
+        RenderWithBoundBuffersAndUnbind(GL_TRIANGLE_STRIP, numIndices);
+    }
+
+    virtual void RenderTriangleFanWithBoundBuffersAndUnbind(size_t numIndices) {
+        RenderWithBoundBuffersAndUnbind(GL_TRIANGLE_FAN, numIndices);
     }
 
     virtual size_t CreateShader(const char* vertex, const char* fragment, char* outError, size_t outSize) {

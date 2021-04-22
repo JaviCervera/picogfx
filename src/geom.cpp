@@ -4,13 +4,14 @@
 
 namespace picogfx {
 
-Geom* Geom::Create(const Vertex* vertices, size_t numVertices, const unsigned short* indices, size_t numIndices) {
-    return new impl::Geom(vertices, numVertices, indices, numIndices);
+Geom* Geom::Create(RenderMode mode, const Vertex* vertices, size_t numVertices, const unsigned short* indices, size_t numIndices) {
+    return new impl::Geom(mode, vertices, numVertices, indices, numIndices);
 }
 
 namespace impl {
 
-Geom::Geom(const Vertex* vertices, size_t numVertices, const unsigned short* indices, size_t numIndices) {
+Geom::Geom(RenderMode mode, const Vertex* vertices, size_t numVertices, const unsigned short* indices, size_t numIndices) {
+    mMode = mode;
     mNumIndices = numIndices;
     mVertexBuffer = GfxDriver::Get().CreateBuffer();
     mIndexBuffer = GfxDriver::Get().CreateBuffer();
@@ -31,7 +32,23 @@ void Geom::Render(picogfx::RenderData& renderData, bool culling) const {
     GfxDriver::Get().SetCulling(culling);
     GfxDriver::Get().BindBuffers(mVertexBuffer, mIndexBuffer);
     ((RenderData&)renderData).Prepare();
-    GfxDriver::Get().RenderTrianglesWithBoundBuffersAndUnbind(mNumIndices);
+    switch (mMode) {
+    case POINTS:
+        GfxDriver::Get().RenderPointsWithBoundBuffersAndUnbind(mNumIndices);
+        break;
+    case LINES:
+        GfxDriver::Get().RenderLinesWithBoundBuffersAndUnbind(mNumIndices);
+        break;
+    case TRIANGLES:
+        GfxDriver::Get().RenderTrianglesWithBoundBuffersAndUnbind(mNumIndices);
+        break;
+    case TRIANGLE_STRIP:
+        GfxDriver::Get().RenderTriangleStripWithBoundBuffersAndUnbind(mNumIndices);
+        break;
+    case TRIANGLE_FAN:
+        GfxDriver::Get().RenderTriangleFanWithBoundBuffersAndUnbind(mNumIndices);
+        break;
+    }
 }
 
 } // namespace impl
