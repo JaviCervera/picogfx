@@ -13,6 +13,7 @@ struct GfxDriverGLES20 : public GfxDriver {
 
     virtual void Prepare(int viewportX, int viewportY, int viewportWidth, int viewportHeight, int color) {
         // Enable required gl states
+        glEnable(GL_BLEND);
         glEnable(GL_CULL_FACE);
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_SCISSOR_TEST);
@@ -25,6 +26,23 @@ struct GfxDriverGLES20 : public GfxDriver {
         if (color != 0) {
             glClearColor(((color >> 16) & 0xff) / 255.0f, ((color >> 8) & 0xff) / 255.0f, (color & 0xff) / 255.0f, 1);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        }
+    }
+
+    virtual void SetBlendMode(BlendMode blend) {
+        switch (blend) {
+        case SOLID:
+            glBlendFunc(GL_ONE, GL_ZERO);
+            break;
+        case ALPHA:
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            break;
+        case ADD:
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+            break;
+        case MULTIPLY:
+            glBlendFunc(GL_DST_COLOR, GL_ZERO);
+            break;
         }
     }
 

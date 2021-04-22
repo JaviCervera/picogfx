@@ -28,7 +28,8 @@ void Geom::Discard() {
     delete this;
 }
 
-void Geom::Render(picogfx::RenderData& renderData, bool culling) const {
+void Geom::Render(picogfx::RenderData& renderData, picogfx::BlendMode blend, bool culling) const {
+    GfxDriver::Get().SetBlendMode(blend);
     GfxDriver::Get().SetCulling(culling);
     GfxDriver::Get().BindBuffers(mVertexBuffer, mIndexBuffer);
     ((RenderData&)renderData).Prepare();

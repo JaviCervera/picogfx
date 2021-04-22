@@ -106,7 +106,7 @@ void Update() {
     Core::Get().Prepare(0, 0, width, height, 0xff000044);
 
     // Render geom
-    geom->Render(*renderData, false);
+    geom->Render(*renderData, SOLID, false);
 
     // Swap screen buffers
     glfwSwapBuffers(window);

@@ -138,7 +138,7 @@ void Update() {
 
     // Render geom
     for (std::vector<Geom*>::iterator it = geoms.begin(); it != geoms.end(); ++it) {
-        (*it)->Render(*renderData, false);
+        (*it)->Render(*renderData, SOLID, false);
     }
 
     // Start new ImGui frame
