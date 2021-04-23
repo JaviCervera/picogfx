@@ -33,6 +33,11 @@ void Core::SetTransform(float x, float y, float z, float pitch, float yaw, float
     memcpy(m, &mat, sizeof(mat));
 }
 
+void Core::SetIdentity(float* m) {
+    lmat4_t mat = lmat4_identity();
+    memcpy(m, &mat, sizeof(mat));
+}
+
 void Core::MulMatrices(const float* a, const float* b, float* m) {
     lmat4_t mat = lmat4_mul(*(const lmat4_t*)a, *(const lmat4_t*)b);
     memcpy(m, &mat, sizeof(mat));
