@@ -104,7 +104,8 @@ void RenderData::PrepareMat4(RenderData& renderData, const BindingData& binding,
 
 void RenderData::PrepareTex(RenderData& renderData, const BindingData& binding, const Shader& shader) {
     GfxDriver::Get().SetShaderInt(shader.GetId(), binding.Location, renderData.GetNumTextures());
-    GfxDriver::Get().BindTexture((*((const Texture**)binding.Value))->GetId(), renderData.GetNumTextures());
+    const Texture* tex = *(const Texture**)binding.Value;
+    GfxDriver::Get().BindTexture(tex ? tex->GetId() : 0, renderData.GetNumTextures());
     renderData.IncNumTextures();
 }
 
