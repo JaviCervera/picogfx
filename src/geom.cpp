@@ -28,9 +28,11 @@ void Geom::Discard() {
     delete this;
 }
 
-void Geom::Render(picogfx::RenderData& renderData, picogfx::BlendMode blend, bool culling) const {
+void Geom::Render(picogfx::RenderData& renderData, picogfx::BlendMode blend, bool culling, bool depthTest, bool depthWrite) const {
     GfxDriver::Get().SetBlendMode(blend);
     GfxDriver::Get().SetCulling(culling);
+    GfxDriver::Get().SetDepthTest(depthTest);
+    GfxDriver::Get().SetDepthWrite(depthWrite);
     GfxDriver::Get().BindBuffers(mVertexBuffer, mIndexBuffer);
     ((RenderData&)renderData).Prepare();
     switch (mMode) {

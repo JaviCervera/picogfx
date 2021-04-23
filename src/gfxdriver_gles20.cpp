@@ -14,11 +14,13 @@ struct GfxDriverGLES20 : public GfxDriver {
     virtual void Prepare(int viewportX, int viewportY, int viewportWidth, int viewportHeight, int color) {
         // Enable required gl states
         glEnable(GL_BLEND);
-        glEnable(GL_CULL_FACE);
-        glEnable(GL_DEPTH_TEST);
         glEnable(GL_SCISSOR_TEST);
         glDepthFunc(GL_LEQUAL);
         glFrontFace(GL_CW);
+        SetBlendMode(SOLID);
+        SetCulling(true);
+        SetDepthTest(true);
+        SetDepthWrite(true);
 
         // Set viewport
         glViewport(viewportX, viewportY, viewportWidth, viewportHeight);
@@ -49,6 +51,15 @@ struct GfxDriverGLES20 : public GfxDriver {
     virtual void SetCulling(bool enable) {
         if (enable) glEnable(GL_CULL_FACE);
         else glDisable(GL_CULL_FACE);
+    }
+
+    virtual void SetDepthTest(bool enable) {
+        if (enable) glEnable(GL_DEPTH_TEST);
+        else glDisable(GL_DEPTH_TEST);
+    }
+
+    virtual void SetDepthWrite(bool enable) {
+        glDepthMask(enable);
     }
 
     virtual size_t CreateBuffer() {

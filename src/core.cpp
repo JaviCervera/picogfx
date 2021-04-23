@@ -10,6 +10,11 @@ bool Core::Init(LoadProc proc) {
     return GfxDriver::Get().Init(proc);
 }
 
+void Core::SetOrtho(float left, float right, float top, float bottom, float near, float far, float* m) {
+    lmat4_t mat = lmat4_ortholh(left, right, bottom, top, near, far);
+    memcpy(m, &mat, sizeof(mat));
+}
+
 void Core::SetPerspective(float fov, float ratio, float start, float end, float* m) {
     lmat4_t mat = lmat4_perspectivelh(lm_deg2rad(fov), ratio, start, end);
     memcpy(m, &mat, sizeof(mat));

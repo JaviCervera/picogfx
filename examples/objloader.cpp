@@ -114,7 +114,7 @@ void Update() {
 
     // Render geom
     for (std::vector<Geom*>::iterator it = geoms.begin(); it != geoms.end(); ++it) {
-        (*it)->Render(*renderData, SOLID, false);
+        (*it)->Render(*renderData, SOLID);
     }
 
     // Swap screen buffers
