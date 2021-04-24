@@ -14,5 +14,7 @@ cd ../..
 echo "# Building examples"
 g++ -Os -fno-exceptions -fno-rtti -Isrc/glad_gles20/include -L_CMAKE/_GLFW/src -o _build/triangle examples/triangle.cpp src/glad_gles20/src/glad.c src/*.cpp -lglfw3 -framework AppKit -framework CoreFoundation -framework CoreGraphics -framework IOKit
 g++ -Os -fno-exceptions -fno-rtti -Isrc/glad_gles20/include -L_CMAKE/_GLFW/src -o _build/texture examples/texture.cpp src/glad_gles20/src/glad.c src/*.cpp -lglfw3 -framework AppKit -framework CoreFoundation -framework CoreGraphics -framework IOKit
+g++ -Os -fno-exceptions -fno-rtti -Isrc/glad_gles20/include -L_CMAKE/_GLFW/src -o _build/objloader examples/objloader.cpp src/glad_gles20/src/glad.c src/*.cpp -lglfw3 -framework AppKit -framework CoreFoundation -framework CoreGraphics -framework IOKit
+g++ -Os -fno-exceptions -fno-rtti -Isrc/glad_gles20/include -DIMGUI_IMPL_OPENGL_ES2 -L_CMAKE/_GLFW/src -o _build/dir_light examples/dir_light.cpp examples/imgui/*.cpp src/glad_gles20/src/glad.c src/*.cpp -lglfw3 -framework AppKit -framework CoreFoundation -framework CoreGraphics -framework IOKit
 
 echo "# Done"

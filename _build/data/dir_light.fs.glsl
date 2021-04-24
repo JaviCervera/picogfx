@@ -1,5 +1,3 @@
-precision mediump float;
-
 uniform vec3 LightDir;
 uniform vec3 Diffuse;
 uniform vec3 Ambient;

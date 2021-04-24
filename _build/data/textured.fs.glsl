@@ -1,5 +1,3 @@
-precision mediump float;
-
 uniform sampler2D Texture;
 
 varying vec2 FragTexCoords;

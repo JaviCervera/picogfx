@@ -52,6 +52,9 @@ int main(int argc, char* argv[]) {
     char shaderError[256];
     char* vertex = LoadString("data/vertexcolor.vs.glsl");
     char* fragment = LoadString("data/vertexcolor.fs.glsl");
+#ifndef __APPLE__
+    fragment = PrefixString(fragment, "precision mediump float;");
+#endif
     Shader* shader = Shader::Create(vertex, fragment, shaderError, sizeof(shaderError));
     free(vertex);
     free(fragment);
@@ -98,7 +101,7 @@ void Update() {
 
     // Prepare for drawing
     int width, height;
-    glfwGetWindowSize(window, &width, &height);
+    glfwGetFramebufferSize(window, &width, &height);
     Core::Get().SetPerspective(60, float(width) / height, 1, 1000, projection);
     Core::Get().SetView(0, 0, -4, 0, 0, 0, view);
     Core::Get().SetTransform(0, 0, 0, 0, angle, 0, 1, 1, 1, model);

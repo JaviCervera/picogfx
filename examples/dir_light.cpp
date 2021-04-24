@@ -69,12 +69,19 @@ int main(int argc, char* argv[]) {
     ImGui::StyleColorsDark();
     ImGuiIO &io = ImGui::GetIO();
     ImGui_ImplGlfw_InitForOpenGL(window, true);
+#ifdef __APPLE__
+    ImGui_ImplOpenGL3_Init("#version 120");
+#else
     ImGui_ImplOpenGL3_Init("#version 100");
+#endif
 
     // Create shader
     char shaderError[256];
     char* vertex = LoadString("data/dir_light.vs.glsl");
     char* fragment = LoadString("data/dir_light.fs.glsl");
+#ifndef __APPLE__
+    fragment = PrefixString(fragment, "precision mediump float;");
+#endif
     Shader* shader = Shader::Create(vertex, fragment, shaderError, sizeof(shaderError));
     free(vertex);
     free(fragment);
@@ -127,7 +134,7 @@ void Update() {
 
     // Prepare for drawing
     int width, height;
-    glfwGetWindowSize(window, &width, &height);
+    glfwGetFramebufferSize(window, &width, &height);
     Core::Get().SetPerspective(60, float(width) / height, 1, 1000, projection);
     Core::Get().SetView(eyePos[0], eyePos[1], eyePos[2], 30, 0, 0, view);
     Core::Get().SetTransform(0, 0, 0, 0, angle, 0, 1, 1, 1, model);
