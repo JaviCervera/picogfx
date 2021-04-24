@@ -1,5 +1,3 @@
-#version 100
-
 precision mediump float;
 
 uniform vec3 LightDir;
