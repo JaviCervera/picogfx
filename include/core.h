@@ -17,6 +17,7 @@ struct Core {
     virtual void MulMatrices(const float* a, const float* b, float* m) = 0;
     virtual void MulVecByMatrix(const float* vec, const float* m, float* out) = 0;
     virtual void RotateVec(float x, float y, float z, float pitch, float yaw, float roll, float* out) = 0;
+    virtual void LookAt(float x, float y, float z, float targetX, float targetY, float targetZ, float* out) = 0;
     virtual void Prepare(int viewportX, int viewportY, int viewportWidth, int viewportHeight, int color = 0) = 0;
 };
 

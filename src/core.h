@@ -15,6 +15,7 @@ struct Core : public picogfx::Core {
     virtual void MulMatrices(const float* a, const float* b, float* m);
     virtual void MulVecByMatrix(const float* vec, const float* m, float* out);
     virtual void RotateVec(float x, float y, float z, float pitch, float yaw, float roll, float* out);
+    virtual void LookAt(float x, float y, float z, float targetX, float targetY, float targetZ, float* out);
     virtual void Prepare(int viewportX, int viewportY, int viewportWidth, int viewportHeight, int color = 0);
 };
 
