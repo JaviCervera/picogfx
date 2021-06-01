@@ -2,6 +2,8 @@
 
 A small OpenGL based graphics library for C++.
 
+Project documentation is available [here](https://javicervera.github.io/picogfx/).
+
 ## Building with Emscripten
 
 ```bash
