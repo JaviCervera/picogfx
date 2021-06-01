@@ -4,6 +4,10 @@
 
 namespace picogfx {
 
+/**
+ * This class initializes the library and prepares the graphics context for rendering on a specific display region.
+ * It also contains common 3D math functions, which will allow in some cases to avoid using an additional math library.
+ */
 struct Core {
     typedef void* (* LoadProc)(const char*);
 

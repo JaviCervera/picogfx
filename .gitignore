@@ -3,6 +3,7 @@
 _build/*
 !_build/data
 _CMAKE
+docs/*
 
 # Prerequisites
 *.d
