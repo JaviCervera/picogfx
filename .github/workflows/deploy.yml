@@ -4,7 +4,7 @@ jobs:
   deploy-pages:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎
+      - name: Checkout 🛎️
         uses: actions/checkout@v2
       - name: Install Doxygen 📥
         run: sudo apt install doxygen -y
