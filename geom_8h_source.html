@@ -71,41 +71,45 @@ $(function() {
 <div class="title">geom.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;stddef.h&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;vertex.h&quot;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef PICOGFX_GEOM_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define PICOGFX_GEOM_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;common.h&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>picogfx {</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">struct </span>RenderData;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">enum</span> BlendMode {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    SOLID,</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    ALPHA,</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    ADD,</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    MULTIPLY</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">enum</span> blendmode_t {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  bm_solid,</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  bm_alpha,</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  bm_add,</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  bm_multiply</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;};</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">enum</span> RenderMode {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    POINTS,</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    LINES,</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    TRIANGLES,</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    TRIANGLE_STRIP,</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    TRIANGLE_FAN</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">enum</span> rendermode_t {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  rm_points,</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  rm_lines,</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  rm_triangles,</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  rm_triangle_strip,</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  rm_triangle_fan</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;};</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structpicogfx_1_1Geom.html">   25</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structpicogfx_1_1Geom.html">Geom</a> {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">static</span> <a class="code" href="structpicogfx_1_1Geom.html">Geom</a>* Create(RenderMode mode, <span class="keyword">const</span> <a class="code" href="structpicogfx_1_1Vertex.html">Vertex</a>* vertices, <span class="keywordtype">size_t</span> numVertices, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span>* indices, <span class="keywordtype">size_t</span> numIndices);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Discard() = 0;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Render(<a class="code" href="structpicogfx_1_1RenderData.html">RenderData</a>&amp; renderData, BlendMode blend, <span class="keywordtype">bool</span> culling = <span class="keyword">true</span>, <span class="keywordtype">bool</span> depthTest = <span class="keyword">true</span>, <span class="keywordtype">bool</span> depthWrite = <span class="keyword">true</span>) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;};</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace picogfx</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">struct </span>geom_t;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">struct </span>renderdata_t;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">struct </span><a class="code" href="structvertex__t.html">vertex_t</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">struct </span>geom_t* geom_create(<span class="keyword">enum</span> rendermode_t mode, <span class="keyword">const</span> <span class="keyword">struct</span> <a class="code" href="structvertex__t.html">vertex_t</a>* vertices, <span class="keywordtype">size_t</span> num_vertices, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span>* indices, <span class="keywordtype">size_t</span> num_indices);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keywordtype">void</span> geom_destroy(<span class="keyword">struct</span> geom_t* geom);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keywordtype">void</span> geom_render(<span class="keyword">struct</span> geom_t* geom, <span class="keyword">struct</span> renderdata_t* renderdata, <span class="keyword">enum</span> blendmode_t blend, bool_t culling, bool_t depth_test, bool_t depth_write);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">/* extern &quot;C&quot; */</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* PICOGFX_GEOM_H */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="astructpicogfx_1_1Vertex_html"><div class="ttname"><a href="structpicogfx_1_1Vertex.html">picogfx::Vertex</a></div><div class="ttdef"><b>Definition:</b> vertex.h:5</div></div>
-<div class="ttc" id="astructpicogfx_1_1Geom_html"><div class="ttname"><a href="structpicogfx_1_1Geom.html">picogfx::Geom</a></div><div class="ttdef"><b>Definition:</b> geom.h:25</div></div>
-<div class="ttc" id="astructpicogfx_1_1RenderData_html"><div class="ttname"><a href="structpicogfx_1_1RenderData.html">picogfx::RenderData</a></div><div class="ttdef"><b>Definition:</b> renderdata.h:8</div></div>
+<div class="ttc" id="astructvertex__t_html"><div class="ttname"><a href="structvertex__t.html">vertex_t</a></div><div class="ttdef"><b>Definition:</b> vertex.h:10</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

@@ -67,11 +67,11 @@ $(function() {
 <div class="title"><img src="logo.png" alt="PicoGFX" class="inline"/> PicoGFX </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>A small OpenGL based graphics library for C++.</p>
+<div class="textblock"><p>A small OpenGL based graphics library for C.</p>
 <p>Project documentation is available <a href="https://javicervera.github.io/picogfx/">here</a>.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Building with Emscripten</h1>
-<div class="fragment"><div class="line">em++ -o _build/&lt;example_name&gt;.html examples/&lt;example_name&gt;.cpp examples/imgui/*.cpp src/glad_gles20/src/glad.c src/*.cpp --preload-file _build/data@/data -Isrc/glad_gles20/include -s USE_GLFW=3 -fno-exceptions -fno-rtti</div>
+<div class="fragment"><div class="line">em++ -o _build/&lt;example_name&gt;.html examples/&lt;example_name&gt;.cpp examples/imgui/*.cpp src/glad_gles20/src/glad.c src/*.c --preload-file _build/data@/data -Isrc/glad_gles20/include -s USE_GLFW=3 -fno-exceptions -fno-rtti</div>
 <div class="line">cd _build</div>
 <div class="line">python3 -m http.server</div>
 </div><!-- fragment --> </div></div><!-- PageDoc -->

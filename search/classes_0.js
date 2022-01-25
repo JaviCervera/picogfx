@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['core_6',['Core',['../structpicogfx_1_1Core.html',1,'picogfx']]]
+  ['vertex_5ft_1',['vertex_t',['../structvertex__t.html',1,'']]]
 ];
