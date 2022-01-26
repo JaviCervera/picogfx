@@ -1,3 +1,7 @@
+/**
+ * @file
+ */
+
 #ifndef PICOGFX_GEOM_H
 #define PICOGFX_GEOM_H
 

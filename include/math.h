@@ -1,3 +1,7 @@
+/**
+ * @file
+ */
+
 #ifndef PICOGFX_MATH_H
 #define PICOGFX_MATH_H
 

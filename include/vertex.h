@@ -1,3 +1,7 @@
+/**
+ * @file
+ */
+
 #ifndef PICOGFX_VERTEX_H
 #define PICOGFX_VERTEX_H
 

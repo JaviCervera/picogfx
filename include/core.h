@@ -1,3 +1,7 @@
+/**
+ * @file
+ */
+
 #ifndef PICOGFX_CORE_H
 #define PICOGFX_CORE_H
 

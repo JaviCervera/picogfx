@@ -1,3 +1,7 @@
+/**
+ * @file
+ */
+
 #ifndef PICOGFX_RENDERDATA_H
 #define PICOGFX_RENDERDATA_H
 

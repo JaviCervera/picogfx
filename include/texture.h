@@ -1,3 +1,7 @@
+/**
+ * @file
+ */
+
 #ifndef PICOGFX_TEXTURE_H
 #define PICOGFX_TEXTURE_H
 

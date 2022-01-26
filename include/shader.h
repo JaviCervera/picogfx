@@ -1,3 +1,7 @@
+/**
+ * @file
+ */
+
 #ifndef PICOGFX_SHADER_H
 #define PICOGFX_SHADER_H
 
