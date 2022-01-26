@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>picogfx: include Directory Reference</title>
+<title>picogfx: include/core.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -67,27 +67,41 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">include Directory Reference</div>  </div>
+<div class="title">core.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><code>#include &quot;common.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for core.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="core_8h__incl.png" border="0" usemap="#include_2core_8h" alt=""/></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="core_8h__dep__incl.png" border="0" usemap="#include_2core_8hdep" alt=""/></div>
+</div>
+</div>
+<p><a href="core_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="files"></a>
-Files</h2></td></tr>
-<tr class="memitem:core_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="core_8h.html">core.h</a> <a href="core_8h_source.html">[code]</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:geom_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="geom_8h.html">geom.h</a> <a href="geom_8h_source.html">[code]</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:math_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="math_8h.html">math.h</a> <a href="math_8h_source.html">[code]</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:renderdata_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="renderdata_8h.html">renderdata.h</a> <a href="renderdata_8h_source.html">[code]</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:shader_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shader_8h.html">shader.h</a> <a href="shader_8h_source.html">[code]</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:texture_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="texture_8h.html">texture.h</a> <a href="texture_8h_source.html">[code]</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:vertex_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vertex_8h.html">vertex.h</a> <a href="vertex_8h_source.html">[code]</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:af52c78bf6161982d78d31ba83c737d75"><td class="memItemLeft" align="right" valign="top"><a id="af52c78bf6161982d78d31ba83c737d75"></a>
+typedef void *(*&#160;</td><td class="memItemRight" valign="bottom"><b>load_proc_t</b>) (const char *)</td></tr>
+<tr class="separator:af52c78bf6161982d78d31ba83c737d75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aee49b0f675d1e63a8b2b574ee0aad3df"><td class="memItemLeft" align="right" valign="top"><a id="aee49b0f675d1e63a8b2b574ee0aad3df"></a>
+bool_t&#160;</td><td class="memItemRight" valign="bottom"><b>core_init</b> (load_proc_t proc)</td></tr>
+<tr class="separator:aee49b0f675d1e63a8b2b574ee0aad3df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaf17cfd52b24820151e2823b413cf14"><td class="memItemLeft" align="right" valign="top"><a id="abaf17cfd52b24820151e2823b413cf14"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>core_prepare</b> (int viewport_x, int viewport_y, int viewport_width, int viewport_height, int color)</td></tr>
+<tr class="separator:abaf17cfd52b24820151e2823b413cf14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
