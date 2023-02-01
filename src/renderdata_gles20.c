@@ -138,6 +138,6 @@ void _bindingdata_prepare_mat4(const struct bindingdata_t* bd, struct renderdata
 void _bindingdata_prepare_texture(const struct bindingdata_t* bd, struct renderdata_t* rd) {
   const struct texture_t* texture = *(const struct texture_t**)bd->value;
   glUniform1i(bd->location, rd->num_textures);
-  _texture_bind(texture, rd->num_textures);
+  if (texture) _texture_bind(texture, rd->num_textures);
   ++rd->num_textures;
 }
