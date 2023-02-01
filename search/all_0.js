@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['core_2eh_0',['core.h',['../core_8h.html',1,'']]]
+  ['_3cimg_20src_3d_22logo_2epng_22_20alt_3d_22picogfx_22_2f_3e_20picogfx_0',['&lt;img src=&quot;logo.png&quot; alt=&quot;picogfx&quot;/&gt; picogfx',['../index.html',1,'']]]
 ];
